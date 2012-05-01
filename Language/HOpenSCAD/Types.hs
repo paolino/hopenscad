@@ -1,9 +1,10 @@
-module Language.Mecha.Types
+module Language.HOpenSCAD.Types
   ( Vector, Vertex, Normal, Color
   , Moveable  (..)
   , Scaleable (..)
   , Colorable (..)
   , Setable   (..)
+  , Reflectable (..)
   , moveX
   , moveY
   , moveZ
@@ -11,6 +12,9 @@ module Language.Mecha.Types
   , scaleX
   , scaleY
   , scaleZ
+  , reflectX
+  , reflectY
+  , reflectZ
   , unions
   ) where
 
@@ -25,6 +29,14 @@ class Moveable a where
   rotateY :: Double -> a -> a
   rotateZ :: Double -> a -> a
 
+class Reflectable a where
+  reflect :: Vector -> a -> a
+
+reflectX, reflectY, reflectZ :: (Moveable a, Reflectable a) => Double -> a -> a
+reflectX k = moveX (2*k) . reflect (1,0,0) 
+reflectY k = moveY (2*k) . reflect (0,1,0) 
+reflectZ k = moveZ (2*k) . reflect (0,0,1) 
+	
 moveX :: Moveable a => Double -> a -> a
 moveX a = move (a, 0, 0)
 

@@ -1,0 +1,38 @@
+name:    hopenscad
+version: 0.1.2
+
+category: Language
+
+synopsis: A constructive solid geometry (CSG) modeling language.
+
+description:
+  HOpenSCAD is a constructive solid geometry modeling language which compiles to OpenSCAD.
+
+author:     Tom Hawkins <tomahawkins@gmail.com>, Paolo Veronelli <paolo.veronelli@gmail.com>
+maintainer: Paolo Veronelli <paolo.veronelli@gmail.com>
+
+license:      BSD3
+license-file: LICENSE
+
+homepage:
+
+build-type:    Simple
+cabal-version: >= 1.6
+
+library
+
+    build-depends:
+        base       >= 4       && < 5
+
+    exposed-modules:
+        Language.HOpenSCAD
+        Language.HOpenSCAD.Export
+        Language.HOpenSCAD.Solid
+        Language.HOpenSCAD.Types
+
+    ghc-options: -W
+
+ 
+source-repository head
+    type:     git
+    location: git://github.com/paolino/hopenscad.git

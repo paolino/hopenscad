@@ -1,7 +1,8 @@
-module Language.Mecha.Solid
+module Language.HOpenSCAD.Solid
   ( Solid     (..)
   , Primitive (..)
   , Transform (..)
+  , Reflectable (..)
   , sphere
   , cone
   , box
@@ -13,7 +14,7 @@ module Language.Mecha.Solid
   , torus
   ) where
 
-import Language.Mecha.Types
+import Language.HOpenSCAD.Types
 
 data Solid
   = Primitive [Transform] Color Primitive
@@ -35,6 +36,7 @@ data Transform
   | RotateX Double
   | RotateY Double
   | RotateZ Double
+  | Reflect Vector
   deriving Eq
 
 transform :: Transform -> Solid -> Solid
@@ -49,6 +51,9 @@ instance Moveable Solid where
   rotateX a = transform $ RotateX a
   rotateY a = transform $ RotateY a
   rotateZ a = transform $ RotateZ a
+
+instance Reflectable Solid where
+  reflect = transform . Reflect
 
 instance Scaleable Solid where
   scale a   = transform $ Scale a
